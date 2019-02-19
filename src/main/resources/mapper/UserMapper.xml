@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxs.ssm.template.dao.api.IUserDao">
+    <resultMap type="UserModel" id="UserModelResultMap" >
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+    </resultMap>
+    <insert id="add" parameterType="UserModel">
+        INSERT INTO user(id,username,password) VALUE (#{id},#{username}, #{password})
+    </insert>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM user WHERE id=#{id}
+    </delete>
+
+    <update id="update" parameterType="UserModel">
+        UPDATE user
+        SET id = #{id},username = #{username},password = #{password}
+        WHERE  id = #{id}
+    </update>
+
+    <select id="queryById" resultType="UserModel" parameterType="String">
+        SELECT id,username,password
+        FROM user
+        WHERE id=#{id}
+    </select>
+    <select id="queryAll" resultMap="UserModelResultMap">
+        SELECT id,username,password
+        FROM user
+    </select>
+
+</mapper>
